@@ -140,6 +140,13 @@ const Questions = ({ navigation}) => {
 
     const restartQuiz = () =>{
         SetShowScoreBoard(false);
+        
+        SetNewQuestionNo(0);
+        SetScore(0);
+        
+        SetCurrentOption(null);
+        SetCurrentOptionSelected(null);
+        SetIsOptionDisabled(false);
        
     }
 
@@ -165,7 +172,7 @@ const Questions = ({ navigation}) => {
             <Modal
             animationType="slide"
             transparent={true}
-            visible = {true}
+            visible = {showScoreBoard}
             >
                 <View style={QuizStyle.scoreContainer}>
                     <View style={QuizStyle.scoreOuter}>
