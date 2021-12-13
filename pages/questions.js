@@ -130,26 +130,30 @@ const Questions = ({ navigation}) => {
                     allQuestions[currentQuestionNo].options.map((option) => 
                     (
                         
-                        <TouchableOpacity
+                       <TouchableOpacity
                          
-                            onPress={()=> ansValidation(option)}
+                             onPress={()=> ansValidation(option) }
+                             disabled={isOptionDisabled}
                             key={option}
-                           
-                           
-                        > 
-                            <Text style={
-                            allQuestions[currentQuestionNo].correct_ans==currentOption? QuizStyle.rightAns :   SetCurrentOption(null)
+                            style={
+                            option==currentOption? QuizStyle.rightAns : 
+                            option==currentOptionSelected? QuizStyle.wrongAns: null
                           
 
                             
-                           }>
+                           }
+                           
+                           
+                        > 
+                            <Text >
                                 {option}
+                               
                                 
                             </Text>
 
                     
 
-                        </TouchableOpacity>
+                     </TouchableOpacity>
                     ))
                 }
             </View>
