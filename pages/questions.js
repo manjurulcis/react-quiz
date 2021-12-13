@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View ,SafeAreaView, Image,Button,Alert , TouchableOpacity,Pressable,Modal,Text,StyleSheet } from 'react-native';
-
+import moment from 'moment';
 
 
 const Questions = ({ navigation}) => {
@@ -34,6 +34,8 @@ const Questions = ({ navigation}) => {
     
     ];
 
+    
+
     const [currentQuestionNo, SetNewQuestionNo] = useState(0);
     const [currentOptionSelected, SetCurrentOptionSelected] = useState(null);
     const [currentOption, SetCurrentOption] = useState(null);
@@ -41,6 +43,9 @@ const Questions = ({ navigation}) => {
     const [score, SetScore] = useState(0);
     const [nextButton, SetNextButton] = useState(false);
     const [showScoreBoard, SetShowScoreBoard] = useState(false);
+
+    const [allAnswers, SetAllAnswers] = useState([]);
+    
 
     {/* Questions */}
     const getQuestions= () => {
@@ -67,12 +72,21 @@ const Questions = ({ navigation}) => {
     {/* Option validation */}
     const ansValidation = (selectedAns) =>{
         let correct_ans = allQuestions[currentQuestionNo]['correct_ans'];
-        SetCurrentOptionSelected(selectedAns);
-        SetCurrentOption(correct_ans);
+        SetCurrentOptionSelected(selectedAns); 
+        
         SetIsOptionDisabled(true);
+        console.log(selectedAns);
         if(selectedAns==correct_ans){
+            SetCurrentOption(correct_ans);
             SetScore(score+1);
+            const answer ={
+                'option': selectedAns,
+                'time'  : new Date().toLocaleDateString()     
+            }
+            allAnswers.push(answer);
+           
         }
+        console.log(allAnswers);
         SetNextButton(true);
 
     }
@@ -120,10 +134,15 @@ const Questions = ({ navigation}) => {
                          
                             onPress={()=> ansValidation(option)}
                             key={option}
-                        
+                           
                            
                         > 
-                            <Text>
+                            <Text style={
+                            allQuestions[currentQuestionNo].correct_ans==currentOption? QuizStyle.rightAns :   SetCurrentOption(null)
+                          
+
+                            
+                           }>
                                 {option}
                                 
                             </Text>
@@ -147,6 +166,7 @@ const Questions = ({ navigation}) => {
         SetCurrentOption(null);
         SetCurrentOptionSelected(null);
         SetIsOptionDisabled(false);
+        SetAllAnswers([]);
        
     }
 
