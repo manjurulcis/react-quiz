@@ -4,14 +4,18 @@ import { View ,SafeAreaView, Image,Button,Alert , Pressable,Text,StyleSheet } fr
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+
 import Questions from './pages/questions';
 
 const QuizApp = ({ navigation}) => {
   
   const cliclHandle = ()=> console.log('text clicked');
   const title='Start Now';
+
+  
   return (
     <SafeAreaView style={styles.container}>
+      
         
         <Image source = {require('C:/Users/parvz/Desktop/QuizApp/logo.jpg')} 
         style = {{ width: 500, height: 500}}

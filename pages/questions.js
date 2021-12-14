@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState ,  useEffect} from 'react';
 import { View ,SafeAreaView, Image,Button,Alert , TouchableOpacity,Pressable,Modal,Text,StyleSheet } from 'react-native';
 import moment from 'moment';
+import axios from 'axios';
 
 
 const Questions = ({ navigation}) => {
@@ -46,22 +47,44 @@ const Questions = ({ navigation}) => {
 
     const [allAnswers, SetAllAnswers] = useState([]);
     
+    const dataUrl = 'http://localhost:8081/';
+    // const [data, SetData]= useState([]);
+    const [title,SetTitle] = useState([]);
+    // const [choices,SetChoices] =useState(null);
+
+
+    
 
     {/* Questions */}
     const getQuestions= () => {
+
+        useEffect(() => {
+            fetch(dataUrl)
+            .then(res=>{
+                return res.json()
+            })
+            .then((json)=> {
+              SetTitle(json[currentQuestionNo].question);
+                console.log(json)
+                // SetChoices(json[currentQuestionNo].q_options);
+            }
+          )
+     
+             },[currentQuestionNo]);
 
         return(
             <View>
                 {/* counter*/}
                 <View style={QuizStyle.counter}>
                 <Text>{currentQuestionNo+1}</Text>
-                    <Text>/{allQuestions.length}</Text>
+                    <Text>/{5}</Text>
                 </View>
 
                  {/* questions*/}
 
                 <Text style={QuizStyle.quizTitle}>
-                    {allQuestions[currentQuestionNo].questions}
+                    {title}
+                   
                  </Text>
 
             </View>
@@ -96,6 +119,7 @@ const Questions = ({ navigation}) => {
             SetShowScoreBoard(true);
         } else{
             SetNewQuestionNo(currentQuestionNo+1);
+          
             SetCurrentOption(null);
             SetCurrentOptionSelected(null);
             SetIsOptionDisabled(false);
@@ -112,7 +136,7 @@ const Questions = ({ navigation}) => {
                onPress={()=> nextBtnHandle()}
                 >
                     <Text style={QuizStyle.nextBtn}>Next</Text>
-
+                
                 </TouchableOpacity>
             )
         }
@@ -139,14 +163,12 @@ const Questions = ({ navigation}) => {
                             option==currentOption? QuizStyle.rightAns : 
                             option==currentOptionSelected? QuizStyle.wrongAns: null
                           
-
-                            
                            }
                            
                            
                         > 
                             <Text >
-                                {option}
+                                {/* {choices} */}
                                
                                 
                             </Text>
