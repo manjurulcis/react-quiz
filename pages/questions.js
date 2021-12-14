@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
-import { View ,SafeAreaView, Image,Button,Alert , TouchableOpacity,Pressable,Modal,Text,StyleSheet } from 'react-native';
+import { View ,SafeAreaView, Image,Button,Alert , TouchableOpacity,Pressable,Modal,Text,StyleSheet, TextInput } from 'react-native';
 
 import axios from 'axios';
 import RadioGroup,{Radio} from "react-native-radio-input";
-import { RadioButton } from 'react-native-paper';
+
+const getChecked = (value) => {
+    // value = our checked value
+    console.log(value)
+  }
 
 const Questions = ({ navigation}) => {
     
@@ -53,7 +57,8 @@ const Questions = ({ navigation}) => {
     const [title,SetTitle] = useState([]);
    
 
-
+    const [inputText, SetinputText] = React.useState("Type your details");
+    const [selectedAns, SetSelectedAns] = useState(null);
     
 
     {/* Questions */}
@@ -83,9 +88,19 @@ const Questions = ({ navigation}) => {
 
                  {/* questions*/}
 
+                 <TextInput
+                    // style={styles.input}
+                    onChangeText={SetinputText}
+                    value={inputText}
+                    
+                    
+                />
+                
+
                 <Text style={QuizStyle.quizTitle}>
                     {allQuestions[0].questions}
-                   
+                  {console.log(inputText)}
+                 
                  </Text>
 
             </View>
@@ -143,25 +158,50 @@ const Questions = ({ navigation}) => {
         }
     }
 
+   
+
+
      {/* Options */}
     const getOptions= () => {
-        
-       const getChecked = (value) => {
-            // value = our checked value
-            console.log(value)
-          }
+   
+
+       
 
         return(
             
             <View>
-                
-                <RadioGroup getChecked={function getChecked(value){console.log(value)}}>
-    <Radio iconName={"lens"} label={"Report"} value={"Report"}/>
-    <Radio iconName={"lens"} label={"Field"} value={"Field"}/>
-    <Radio iconName={"lens"} label={"Record"} value={'Record'}/>
-   
-</RadioGroup>
 
+                <TextInput
+                    // style={styles.input}
+                    onChangeText={SetinputText}
+                    value={inputText}
+                    
+                    
+                />
+                
+
+                <Text style={QuizStyle.quizTitle}>
+                    {allQuestions[0].questions}
+                 
+                 
+                 </Text>
+                
+                <RadioGroup getChecked={function getChecked(value){SetSelectedAns(value)}}>
+                    <Radio iconName={"lens"} label={"Report"} value={"Report"}/>
+                    <Radio iconName={"lens"} label={"Field"} value={"Field"}/>
+                    <Radio iconName={"lens"} label={"Record"} value={'Record'}/>
+   
+                </RadioGroup>
+
+                <TouchableOpacity 
+                style={QuizStyle.nextBtnDiv}
+               onPress={()=> navigation.navigate('Home')}
+                >
+                    <Text style={QuizStyle.nextBtn}>Submit</Text>
+                    {console.log(selectedAns)}
+                    {console.log(inputText)}
+                
+                </TouchableOpacity>
 
                 
             </View>
@@ -192,13 +232,13 @@ const Questions = ({ navigation}) => {
 
             {/* Questions */}
           
-            {getQuestions()}
+            {/* {getQuestions()} */}
 
              {/* Options */}
              {getOptions()}
 
             {/* Next btn */}
-            {showNextBtn()}
+            {/* {showNextBtn()} */}
 
            {/* Show Score details */}
           {/*   <Modal
