@@ -4,10 +4,7 @@ import { View ,SafeAreaView, Image,Button,Alert , TouchableOpacity,Pressable,Mod
 import axios from 'axios';
 import RadioGroup,{Radio} from "react-native-radio-input";
 
-const getChecked = (value) => {
-    // value = our checked value
-    console.log(value)
-  }
+
 
 const Questions = ({ navigation}) => {
     
@@ -45,7 +42,7 @@ const Questions = ({ navigation}) => {
     const [currentQuestionNo, SetNewQuestionNo] = useState(0);
     const [currentOptionSelected, SetCurrentOptionSelected] = useState(null);
     const [currentOption, SetCurrentOption] = useState(null);
-    const [isOptionDisabled, SetIsOptionDisabled] = useState(false);
+    const [isOptionDisabled, SetIsOptionDisabled] = useState(true);
     const [score, SetScore] = useState(0);
     const [nextButton, SetNextButton] = useState(false);
     const [showScoreBoard, SetShowScoreBoard] = useState(false);
@@ -57,7 +54,7 @@ const Questions = ({ navigation}) => {
     const [title,SetTitle] = useState([]);
    
 
-    const [inputText, SetinputText] = React.useState("Type your details");
+    const [inputText, SetinputText] = useState(null);
     const [selectedAns, SetSelectedAns] = useState(null);
     
 
@@ -149,7 +146,9 @@ const Questions = ({ navigation}) => {
             return(
                 <TouchableOpacity 
                 style={QuizStyle.nextBtnDiv}
+               
                onPress={()=> navigation.navigate('Home')}
+              
                 >
                     <Text style={QuizStyle.nextBtn}>Submit</Text>
                 
@@ -158,6 +157,7 @@ const Questions = ({ navigation}) => {
         }
     }
 
+ 
    
 
 
@@ -186,7 +186,10 @@ const Questions = ({ navigation}) => {
                  
                  </Text>
                 
-                <RadioGroup getChecked={function getChecked(value){SetSelectedAns(value)}}>
+                <RadioGroup getChecked={function getChecked(value){
+                    SetSelectedAns(value) 
+                  
+                }}>
                     <Radio iconName={"lens"} label={"Report"} value={"Report"}/>
                     <Radio iconName={"lens"} label={"Field"} value={"Field"}/>
                     <Radio iconName={"lens"} label={"Record"} value={'Record'}/>
@@ -195,7 +198,9 @@ const Questions = ({ navigation}) => {
 
                 <TouchableOpacity 
                 style={QuizStyle.nextBtnDiv}
+              
                onPress={()=> navigation.navigate('Home')}
+               disabled = {!selectedAns && !inputText}
                 >
                     <Text style={QuizStyle.nextBtn}>Submit</Text>
                     {console.log(selectedAns)}
