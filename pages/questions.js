@@ -14,26 +14,6 @@ const Questions = ({ navigation}) => {
             options: ["Report","Field","Record","File"],
            
         }
-        // {
-        //     questions: "In which decade was the American Institute of Electrical Engineers (AIEE) founded?",
-        //     options: ["1850s","1880s","1890s","1780s"],
-        //     correct_ans: '1880s'
-        // },
-        // {
-        //     questions: "OS computer abbreviation usually means ?",
-        //     options: ["Order of Significance","Open Software","Operating System","Optical Sensor"],
-        //     correct_ans: 'Operating System'
-        // },
-        // {
-        //     questions: "In which decade was the SPICE simulator introduced?",
-        //     options: ["1950s","1880s","1970s","1780s"],
-        //     correct_ans: '1970s'
-        // },
-        // {
-        //     questions: "Which is a type of Electrically-Erasable Programmable Read-Only Memory?",
-        //     options: ["Flash","Flange","Fury","FRAM"],
-        //     correct_ans: "Flash"
-        // },
     
     ];
 
@@ -41,17 +21,14 @@ const Questions = ({ navigation}) => {
 
     const [currentQuestionNo, SetNewQuestionNo] = useState(0);
     const [currentOptionSelected, SetCurrentOptionSelected] = useState(null);
-    const [currentOption, SetCurrentOption] = useState(null);
-    const [isOptionDisabled, SetIsOptionDisabled] = useState(true);
-    const [score, SetScore] = useState(0);
-    const [nextButton, SetNextButton] = useState(false);
-    const [showScoreBoard, SetShowScoreBoard] = useState(false);
+  
+  
 
     const [allAnswers, SetAllAnswers] = useState([]);
     
     const dataUrl = 'http://localhost:8081/';
    
-    const [title,SetTitle] = useState([]);
+   
    
 
     const [inputText, SetinputText] = useState(null);
@@ -61,30 +38,10 @@ const Questions = ({ navigation}) => {
     {/* Questions */}
     const getQuestions= () => {
 
-     /*    useEffect(() => {
-            fetch(dataUrl)
-            .then(res=>{
-                return res.json()
-            })
-            .then((json)=> {
-              SetTitle(json[currentQuestionNo].question);
-                console.log(json)
-                // SetChoices(json[currentQuestionNo].q_options);
-            }
-          )
-     
-             },[currentQuestionNo]); */
 
         return(
             <View>
-                {/* counter*/}
-               {/*  <View style={QuizStyle.counter}>
-                <Text>{currentQuestionNo+1}</Text>
-                    <Text>/{5}</Text>
-                </View> */}
-
-                 {/* questions*/}
-
+             
                  <TextInput
                     // style={styles.input}
                     onChangeText={SetinputText}
@@ -105,41 +62,7 @@ const Questions = ({ navigation}) => {
     
     }
 
-    {/* Option validation */}
- /*    const ansValidation = (selectedAns) =>{
-        let correct_ans = allQuestions[currentQuestionNo]['correct_ans'];
-        SetCurrentOptionSelected(selectedAns); 
-        
-        SetIsOptionDisabled(true);
-        console.log(selectedAns);
-        if(selectedAns==correct_ans){
-            SetCurrentOption(correct_ans);
-            SetScore(score+1);
-            const answer ={
-                'option': selectedAns,
-                'time'  : new Date().toLocaleDateString()     
-            }
-            allAnswers.push(answer);
-           
-        }
-        console.log(allAnswers);
-        SetNextButton(true);
 
-    } */
-
- /*    const nextBtnHandle = () =>{
-        if(currentQuestionNo == allQuestions.length-1){
-            SetShowScoreBoard(true);
-        } else{
-            SetNewQuestionNo(currentQuestionNo+1);
-          
-            SetCurrentOption(null);
-            SetCurrentOptionSelected(null);
-            SetIsOptionDisabled(false);
-            SetNextButton(false);        
-        }
-
-    } */
    
     const showNextBtn = () => {
         if(showNextBtn){
@@ -214,19 +137,6 @@ const Questions = ({ navigation}) => {
     
     }
 
-  /*   const restartQuiz = () =>{
-        SetShowScoreBoard(false);
-      navigation.navigate('Quiz');
-        SetNewQuestionNo(0);
-        SetScore(0);
-        
-        SetCurrentOption(null);
-        SetCurrentOptionSelected(null);
-        SetIsOptionDisabled(false);
-        SetAllAnswers([]);
-       
-    } */
-
 
     return(
 
@@ -235,47 +145,9 @@ const Questions = ({ navigation}) => {
         <View style={QuizStyle.quizView}>
          
 
-            {/* Questions */}
-          
-            {/* {getQuestions()} */}
 
              {/* Options */}
              {getOptions()}
-
-            {/* Next btn */}
-            {/* {showNextBtn()} */}
-
-           {/* Show Score details */}
-          {/*   <Modal
-            animationType="slide"
-            transparent={true}
-            visible = {showScoreBoard}
-            >
-                <View style={QuizStyle.scoreContainer}>
-                    <View style={QuizStyle.scoreOuter}>
-                       
-                       <View  style={QuizStyle.scoreInner}>
-                        <Text>{score}</Text>
-                        <Text>/{allQuestions.length}</Text>
-                       </View>
-                        
-                        <TouchableOpacity 
-                        onPress={restartQuiz}
-                        style={QuizStyle.retryQuiz}
-                        >
-                            <Text>Take Quiz Again!!</Text>
-                        </TouchableOpacity>
-                        
-                    </View>
-                </View>
-                
-            </Modal> */}
-
-
-
-
-
-
         </View>
 
         </SafeAreaView>
