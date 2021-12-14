@@ -5,23 +5,22 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 
+
 import Questions from './pages/questions';
 
 const QuizApp = ({ navigation}) => {
   
   const cliclHandle = ()=> console.log('text clicked');
-  const title='Start Now';
+  const title='Start';
 
   
   return (
     <SafeAreaView style={styles.container}>
       
         
-        <Image source = {require('C:/Users/parvz/Desktop/QuizApp/logo.jpg')} 
-        style = {{ width: 500, height: 500}}
-        />
+        
 
-      <Text style={styles.textColor}>Bitbyte Quiz</Text>
+      <Text style={styles.textColor}>Welcome to the Quiz</Text>
        
       <Pressable style={styles.button} onPress={()=> navigation.navigate('Quiz')}>
       <Text style={styles.text}>{title}</Text>

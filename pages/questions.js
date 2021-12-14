@@ -1,8 +1,9 @@
-import React, { useState ,  useEffect} from 'react';
+import React, { useState } from 'react';
 import { View ,SafeAreaView, Image,Button,Alert , TouchableOpacity,Pressable,Modal,Text,StyleSheet } from 'react-native';
-import moment from 'moment';
-import axios from 'axios';
 
+import axios from 'axios';
+import RadioGroup,{Radio} from "react-native-radio-input";
+import { RadioButton } from 'react-native-paper';
 
 const Questions = ({ navigation}) => {
     
@@ -10,28 +11,28 @@ const Questions = ({ navigation}) => {
         {
             questions: "What is part of a database that holds only one type of information?",
             options: ["Report","Field","Record","File"],
-            correct_ans: 'Field'
-        },
-        {
-            questions: "In which decade was the American Institute of Electrical Engineers (AIEE) founded?",
-            options: ["1850s","1880s","1890s","1780s"],
-            correct_ans: '1880s'
-        },
-        {
-            questions: "OS computer abbreviation usually means ?",
-            options: ["Order of Significance","Open Software","Operating System","Optical Sensor"],
-            correct_ans: 'Operating System'
-        },
-        {
-            questions: "In which decade was the SPICE simulator introduced?",
-            options: ["1950s","1880s","1970s","1780s"],
-            correct_ans: '1970s'
-        },
-        {
-            questions: "Which is a type of Electrically-Erasable Programmable Read-Only Memory?",
-            options: ["Flash","Flange","Fury","FRAM"],
-            correct_ans: "Flash"
-        },
+           
+        }
+        // {
+        //     questions: "In which decade was the American Institute of Electrical Engineers (AIEE) founded?",
+        //     options: ["1850s","1880s","1890s","1780s"],
+        //     correct_ans: '1880s'
+        // },
+        // {
+        //     questions: "OS computer abbreviation usually means ?",
+        //     options: ["Order of Significance","Open Software","Operating System","Optical Sensor"],
+        //     correct_ans: 'Operating System'
+        // },
+        // {
+        //     questions: "In which decade was the SPICE simulator introduced?",
+        //     options: ["1950s","1880s","1970s","1780s"],
+        //     correct_ans: '1970s'
+        // },
+        // {
+        //     questions: "Which is a type of Electrically-Erasable Programmable Read-Only Memory?",
+        //     options: ["Flash","Flange","Fury","FRAM"],
+        //     correct_ans: "Flash"
+        // },
     
     ];
 
@@ -48,9 +49,9 @@ const Questions = ({ navigation}) => {
     const [allAnswers, SetAllAnswers] = useState([]);
     
     const dataUrl = 'http://localhost:8081/';
-    // const [data, SetData]= useState([]);
+   
     const [title,SetTitle] = useState([]);
-    // const [choices,SetChoices] =useState(null);
+   
 
 
     
@@ -58,7 +59,7 @@ const Questions = ({ navigation}) => {
     {/* Questions */}
     const getQuestions= () => {
 
-        useEffect(() => {
+     /*    useEffect(() => {
             fetch(dataUrl)
             .then(res=>{
                 return res.json()
@@ -70,20 +71,20 @@ const Questions = ({ navigation}) => {
             }
           )
      
-             },[currentQuestionNo]);
+             },[currentQuestionNo]); */
 
         return(
             <View>
                 {/* counter*/}
-                <View style={QuizStyle.counter}>
+               {/*  <View style={QuizStyle.counter}>
                 <Text>{currentQuestionNo+1}</Text>
                     <Text>/{5}</Text>
-                </View>
+                </View> */}
 
                  {/* questions*/}
 
                 <Text style={QuizStyle.quizTitle}>
-                    {title}
+                    {allQuestions[0].questions}
                    
                  </Text>
 
@@ -93,7 +94,7 @@ const Questions = ({ navigation}) => {
     }
 
     {/* Option validation */}
-    const ansValidation = (selectedAns) =>{
+ /*    const ansValidation = (selectedAns) =>{
         let correct_ans = allQuestions[currentQuestionNo]['correct_ans'];
         SetCurrentOptionSelected(selectedAns); 
         
@@ -112,9 +113,9 @@ const Questions = ({ navigation}) => {
         console.log(allAnswers);
         SetNextButton(true);
 
-    }
+    } */
 
-    const nextBtnHandle = () =>{
+ /*    const nextBtnHandle = () =>{
         if(currentQuestionNo == allQuestions.length-1){
             SetShowScoreBoard(true);
         } else{
@@ -126,16 +127,16 @@ const Questions = ({ navigation}) => {
             SetNextButton(false);        
         }
 
-    }
+    } */
    
     const showNextBtn = () => {
         if(showNextBtn){
             return(
                 <TouchableOpacity 
                 style={QuizStyle.nextBtnDiv}
-               onPress={()=> nextBtnHandle()}
+               onPress={()=> navigation.navigate('Home')}
                 >
-                    <Text style={QuizStyle.nextBtn}>Next</Text>
+                    <Text style={QuizStyle.nextBtn}>Submit</Text>
                 
                 </TouchableOpacity>
             )
@@ -145,47 +146,32 @@ const Questions = ({ navigation}) => {
      {/* Options */}
     const getOptions= () => {
         
+       const getChecked = (value) => {
+            // value = our checked value
+            console.log(value)
+          }
 
         return(
             
             <View>
-            
-                {
-                    allQuestions[currentQuestionNo].options.map((option) => 
-                    (
-                        
-                       <TouchableOpacity
-                         
-                             onPress={()=> ansValidation(option) }
-                             disabled={isOptionDisabled}
-                            key={option}
-                            style={
-                            option==currentOption? QuizStyle.rightAns : 
-                            option==currentOptionSelected? QuizStyle.wrongAns: null
-                          
-                           }
-                           
-                           
-                        > 
-                            <Text >
-                                {/* {choices} */}
-                               
-                                
-                            </Text>
+                
+                <RadioGroup getChecked={function getChecked(value){console.log(value)}}>
+    <Radio iconName={"lens"} label={"Report"} value={"Report"}/>
+    <Radio iconName={"lens"} label={"Field"} value={"Field"}/>
+    <Radio iconName={"lens"} label={"Record"} value={'Record'}/>
+   
+</RadioGroup>
 
-                    
 
-                     </TouchableOpacity>
-                    ))
-                }
+                
             </View>
         )
     
     }
 
-    const restartQuiz = () =>{
+  /*   const restartQuiz = () =>{
         SetShowScoreBoard(false);
-        
+      navigation.navigate('Quiz');
         SetNewQuestionNo(0);
         SetScore(0);
         
@@ -194,7 +180,7 @@ const Questions = ({ navigation}) => {
         SetIsOptionDisabled(false);
         SetAllAnswers([]);
        
-    }
+    } */
 
 
     return(
@@ -215,7 +201,7 @@ const Questions = ({ navigation}) => {
             {showNextBtn()}
 
            {/* Show Score details */}
-            <Modal
+          {/*   <Modal
             animationType="slide"
             transparent={true}
             visible = {showScoreBoard}
@@ -238,7 +224,7 @@ const Questions = ({ navigation}) => {
                     </View>
                 </View>
                 
-            </Modal>
+            </Modal> */}
 
 
 
