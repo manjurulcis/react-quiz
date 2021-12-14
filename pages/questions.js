@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { View ,SafeAreaView, Image,Button,Alert , TouchableOpacity,Pressable,Modal,Text,StyleSheet, TextInput } from 'react-native';
-
 import axios from 'axios';
 import RadioGroup,{Radio} from "react-native-radio-input";
 
@@ -10,58 +9,16 @@ const Questions = ({ navigation}) => {
     
     const allQuestions = [
         {
-            questions: "What is part of a database that holds only one type of information?",
+            question: "What is part of a database that holds only one type of information?",
             options: ["Report","Field","Record","File"],
            
         }
-    
     ];
 
-    
-
-    const [currentQuestionNo, SetNewQuestionNo] = useState(0);
-    const [currentOptionSelected, SetCurrentOptionSelected] = useState(null);
-  
-  
-
-    const [allAnswers, SetAllAnswers] = useState([]);
-    
     const dataUrl = 'http://localhost:8081/';
-   
-   
-   
-
     const [inputText, SetinputText] = useState(null);
     const [selectedAns, SetSelectedAns] = useState(null);
     
-
-    {/* Questions */}
-    const getQuestions= () => {
-
-
-        return(
-            <View>
-             
-                 <TextInput
-                    // style={styles.input}
-                    onChangeText={SetinputText}
-                    value={inputText}
-                    
-                    
-                />
-                
-
-                <Text style={QuizStyle.quizTitle}>
-                    {allQuestions[0].questions}
-                  {console.log(inputText)}
-                 
-                 </Text>
-
-            </View>
-        )
-    
-    }
-
 
    
     const showNextBtn = () => {
@@ -87,51 +44,36 @@ const Questions = ({ navigation}) => {
      {/* Options */}
     const getOptions= () => {
    
-
-       
-
         return(
             
             <View>
 
                 <TextInput
-                    // style={styles.input}
+                    style={QuizStyle.inputField}
                     onChangeText={SetinputText}
-                    value={inputText}
-                    
-                    
+                    setEditable={true}
                 />
                 
-
-                <Text style={QuizStyle.quizTitle}>
-                    {allQuestions[0].questions}
-                 
-                 
-                 </Text>
+                <Text style={QuizStyle.quizTitle}> {allQuestions[0].question} </Text>
                 
-                <RadioGroup getChecked={function getChecked(value){
-                    SetSelectedAns(value) 
-                  
-                }}>
+                <RadioGroup getChecked={(value)=>{SetSelectedAns}}>
                     <Radio iconName={"lens"} label={"Report"} value={"Report"}/>
                     <Radio iconName={"lens"} label={"Field"} value={"Field"}/>
                     <Radio iconName={"lens"} label={"Record"} value={'Record'}/>
-   
                 </RadioGroup>
 
-                <TouchableOpacity 
-                style={QuizStyle.nextBtnDiv}
-              
-               onPress={()=> navigation.navigate('Home')}
-               disabled = {!selectedAns && !inputText}
-                >
-                    <Text style={QuizStyle.nextBtn}>Submit</Text>
-                    {console.log(selectedAns)}
-                    {console.log(inputText)}
+                <TouchableOpacity>
+
+                    <Button 
+                        onPress={()=> {
+                                navigation.navigate('Home')}
+                            } 
+                        disabled={!selectedAns && !inputText} 
+                        style={QuizStyle.nextBtn}>
+                        Submit
+                    </Button>
                 
                 </TouchableOpacity>
-
-                
             </View>
         )
     
@@ -142,16 +84,11 @@ const Questions = ({ navigation}) => {
 
         <SafeAreaView style={QuizStyle.container}>
 
-        <View style={QuizStyle.quizView}>
-         
-
-
-             {/* Options */}
-             {getOptions()}
-        </View>
+            <View style={QuizStyle.quizView}>
+                {getOptions()}
+            </View>
 
         </SafeAreaView>
-
      
     )
 
@@ -172,7 +109,13 @@ const QuizStyle = StyleSheet.create({
     },
     quizTitle:{
         fontSize: '30px',
-        color: 'white'
+        color: 'white',
+    },
+    inputField:{
+        fontSize: '30px',
+        color: 'white',
+        border: '1px solid #fff',
+        margin: '15px 0'
     },
     counter:{
         flexDirection: 'row',

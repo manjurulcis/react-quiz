@@ -3,29 +3,19 @@ import React from 'react';
 import { View ,SafeAreaView, Image,Button,Alert , Pressable,Text,StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
-
-
 import Questions from './pages/questions';
 
 const QuizApp = ({ navigation}) => {
   
-  const cliclHandle = ()=> console.log('text clicked');
   const title='Start';
 
   
   return (
-    <SafeAreaView style={styles.container}>
-      
-        
-        
-
+    <SafeAreaView style={styles.container}> 
       <Text style={styles.textColor}>Welcome to the Quiz</Text>
-       
       <Pressable style={styles.button} onPress={()=> navigation.navigate('Quiz')}>
-      <Text style={styles.text}>{title}</Text>
-    </Pressable>
-
+        <Text style={styles.text}>{title}</Text>
+      </Pressable>
       <StatusBar style="auto" />
     </SafeAreaView>
   );
