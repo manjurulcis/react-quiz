@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View ,SafeAreaView, Image,Button,Alert , TouchableOpacity,Pressable,Modal,Text,StyleSheet, TextInput } from 'react-native';
 import axios from 'axios';
 import RadioGroup,{Radio} from "react-native-radio-input";
-
+import moment from 'moment';
 
 
 
@@ -17,7 +17,7 @@ const Questions = ({ navigation}) => {
     ];
 
     const allAnswer =[];
-    const answer = [];
+    let answer = {};
 
     const dataUrl = 'http://localhost:8081/';
     const [inputText, SetinputText] = useState(null);
@@ -31,8 +31,10 @@ const Questions = ({ navigation}) => {
         //     user_answer : inputText,
         //     selected_option : selectedAns
         // }
-        answer['user_answer'] = inputText
-         answer['selected_option'] = selectedAns
+        // answer['user_answer'] = inputText
+        //  answer['selected_option'] = selectedAns
+        answer.user_answer = inputText
+        answer.selected_option = selectedAns
 
         const requestOptions = {
             method:'post',
@@ -48,9 +50,9 @@ const Questions = ({ navigation}) => {
                 .then(data =>  {
 
                     if (data.insertId) {
-                        answer['time'] = new date();
+                        answer.time = moment().format('Y.m.d H:i:s');
                         allAnswer.push(answer);
-                        console.log(allAnswer);
+                     
                         navigation.navigate({
                             name: 'Home'
                         })
@@ -74,9 +76,10 @@ const Questions = ({ navigation}) => {
                     style={QuizStyle.inputField}
                     onChangeText={SetinputText}
                     setEditable={true}
+                    placeholder="Type here...."
                 />
                 
-                <Text style={QuizStyle.quizTitle}> {allQuestions[0].question} </Text>
+                <Text style={QuizStyle.quizTitle}>{allQuestions[0].question}</Text>
                 
                 <RadioGroup getChecked={(value)=>{SetSelectedAns(value)}}>
                     <Radio iconName={"lens"} label={"Report"} value={"Report"}/>
@@ -88,7 +91,10 @@ const Questions = ({ navigation}) => {
 
                     <Text 
                         onPress={()=> {
-                            pushData()}
+                            if(selectedAns && inputText){
+                                pushData()
+                            }
+                           }
                             } 
                         disabled={!selectedAns && !inputText} 
                         style={QuizStyle.nextBtn}>
@@ -136,10 +142,12 @@ const QuizStyle = StyleSheet.create({
         color: 'white',
     },
     inputField:{
-        fontSize: '30px',
+        fontSize: '20px',
         color: 'white',
         border: '1px solid #fff',
-        margin: '15px 0'
+        margin: '15px 0',
+        padding: '15px'
+        
     },
     counter:{
         flexDirection: 'row',
@@ -149,14 +157,6 @@ const QuizStyle = StyleSheet.create({
         padding: 10,
         backgroundColor: 'black',
         color:'white'
-    },
-    rightAns:{
-        backgroundColor: "green",
-        color: 'white'
-    },
-    wrongAns:{
-        backgroundColor: "red",
-        color: 'white'
     },
     nextBtn:{
         fontSize: '20px',
@@ -170,32 +170,6 @@ const QuizStyle = StyleSheet.create({
         marginTop: 20,
         padding: 10,
         borderRadius: 5
-    },
-    scoreContainer:{
-        flex: 1,
-        backgroundColor: '#212A43',
-        justifyContent: 'center',
-        alignItems:'center'
-
-    },
-    scoreOuter: {
-        width: '90%',
-        backgroundColor: 'white',
-        padding : 10,
-        alignItems: 'center'
-    },
-    scoreInner:{
-        flexDirection: 'row',
-        alignItems: 'center'
-    },
-    retryQuiz:{
-        width: '50%',
-        backgroundColor: '#007ACC',
-        color: 'white',
-        fontSize: '12px',
-        marginTop: 10,
-        padding: 10,
-        alignItems: 'center'
     }
 
 

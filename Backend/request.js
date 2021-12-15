@@ -23,7 +23,7 @@ console.log("Connected!");
 });  
 
 app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "http://localhost:19007");
+    res.header("Access-Control-Allow-Origin", "http://localhost:19006");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
   });
