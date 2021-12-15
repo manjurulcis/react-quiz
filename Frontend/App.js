@@ -11,6 +11,8 @@ import axios from 'axios';
 
 const title='Start';
 
+
+
 const DATA = [
   {
     user_answer: "this is bot and this from bot",
@@ -31,27 +33,22 @@ const DATA = [
 
 // const [data,SetData] = useState([]);
 
-
+const baseURL = "http://localhost:8081/";
 
 const QuizApp = ({ route, navigation}) => {
-  
+  let [homeData, SetHomeData] = useState([]);
   useEffect(() => {
-    fetch('http://localhost:8081')
-       .then((res) => res.json())
-       .then(data=> console.log(data))
-       .catch((e) => {
-         console.error(e);
-      
-       });
     
-    // axios.get('http://localhost:8081/')
-    // .then(data=> console.log(data))
-    // .catch(function (error) {
-    //   // handle error
-    //   alert(error.message);
-    // })
+    axios.get(baseURL)
+    .then((res)=> {
+      SetHomeData((res.data))
+    })
+    .catch(function (error) {
+      // handle error
+      alert(error.message);
+    })
 
-   }, []);
+   }, [homeData]);
  
 
   return (
@@ -63,11 +60,12 @@ const QuizApp = ({ route, navigation}) => {
       </Pressable>
       
       <View style={{ flexDirection:'row', justifyContent: 'center', marginTop: '25px' }}>
+      { console.log(homeData,DATA)}
       <FlatList
-        data={DATA}
+        data={homeData}
         renderItem={({item})=>(
           <Text style={{ fontSize: '20px'}}>Text: {item.user_answer} Option: {item.selected_option} Time: {item.time}</Text>
-      
+          
         )}
       
       />
