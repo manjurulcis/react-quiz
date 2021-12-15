@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { View ,SafeAreaView, Image,Button,Alert , Pressable,Text,StyleSheet } from 'react-native';
+import { View ,SafeAreaView,FlatList, Image,Button,Alert , Pressable,Text,StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator} from '@react-navigation/native-stack';
 
@@ -10,7 +10,23 @@ import Questions from './pages/questions';
 
 
 const title='Start';
-
+const DATA = [
+  {
+    user_answer: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
+    selected_option: "First Item",
+    time: '12.10.2021'
+  },
+  {
+    user_answer: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
+    selected_option: "First Item",
+    time: '12.22.2021'
+  },
+  {
+    user_answer: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
+    selected_option: "First Item",
+    time: '8.10.2021'
+  },
+];
 
 
 const QuizApp = ({ route, navigation}) => {
@@ -25,10 +41,18 @@ const QuizApp = ({ route, navigation}) => {
 
       </Pressable>
       
-      <View style={{ flexDirection:'row', width: '50%' }}>
-        <Text>Text: </Text>
-        <Text>Option</Text>
-        <Text>Time</Text>
+      <View style={{ flexDirection:'row', width: '100%', justifyContent: 'center', marginTop: '25px' }}>
+      <FlatList
+        data={DATA}
+        renderItem={({item})=>(
+          <Text style={{ fontSize: '15px', width: '30%'}}>Text: {item.user_answer} Option: {item.selected_option} Time: {item.time}</Text>
+      
+        )}
+      
+      />
+        
+        
+        
 
 
         </View>
