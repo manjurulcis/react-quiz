@@ -1,5 +1,5 @@
 
-import React,{useEffect} from 'react';
+import React from 'react';
 import { View ,SafeAreaView, Image,Button,Alert , Pressable,Text,StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -22,18 +22,16 @@ const QuizApp = ({ route, navigation}) => {
       <Text style={styles.textColor}>Welcome to the Quiz</Text>
       <Pressable style={styles.button} onPress={()=> navigation.navigate('Quiz')}>
         <Text style={styles.text}>{title}</Text>
-        {
-           React.useEffect(() => {
-            if (route.params?.value) {
-            const SetVal = route.params.value;
-            console.log(SetVal);
-            <Text style={styles.text}>{SetVal}</Text>
-            }
-          }, [route.params?.value])
-        }
-       
+
       </Pressable>
       
+      <View style={{ flexDirection:'row', width: '50%' }}>
+        <Text>Text: </Text>
+        <Text>Option</Text>
+        <Text>Time</Text>
+
+
+        </View>
      
     </SafeAreaView>
   );
