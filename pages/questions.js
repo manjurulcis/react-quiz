@@ -18,31 +18,7 @@ const Questions = ({ navigation}) => {
     const dataUrl = 'http://localhost:8081/';
     const [inputText, SetinputText] = useState(null);
     const [selectedAns, SetSelectedAns] = useState(null);
-    
-
-   
-    const showNextBtn = () => {
-        if(showNextBtn){
-            return(
-                <TouchableOpacity 
-                style={QuizStyle.nextBtnDiv}
-               
-               onPress={()=> navigation.navigate('Home')}
-              
-                >
-                    <Text style={QuizStyle.nextBtn}>Submit</Text>
-                
-                </TouchableOpacity>
-            )
-        }
-    }
-
- 
-   
-
-
-     {/* Options */}
-    const getOptions= () => {
+      const getOptions= () => {
    
         return(
             
