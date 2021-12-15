@@ -48,7 +48,7 @@ const QuizApp = ({ route, navigation}) => {
       alert(error.message);
     })
 
-   }, [homeData]);
+   }, []);
  
 
   return (

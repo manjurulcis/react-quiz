@@ -50,8 +50,9 @@ const Questions = ({ navigation}) => {
                 .then(data =>  {
 
                     if (data.insertId) {
-                        answer.time = moment().format('Y.m.d H:i:s');
+                        answer.time = new Date().toLocaleString();
                         allAnswer.push(answer);
+                        console.log(new Date().toLocaleString())
                      
                         navigation.navigate({
                             name: 'Home'
