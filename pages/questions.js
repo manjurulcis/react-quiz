@@ -16,9 +16,7 @@ const Questions = ({ navigation}) => {
         }
     ];
 
-    const allAnswer =[
-        
-    ];
+    const allAnswer =[];
 
     const dataUrl = 'http://localhost:8081/';
     const [inputText, SetinputText] = useState(null);
@@ -28,37 +26,33 @@ const Questions = ({ navigation}) => {
     const [finalOption, SetFinalOption] = useState(null);
 
     const pushData = () =>{
+        answer = {
+            user_answer : inputText,
+            selected_option : selectedAns
+        }
         
-        navigation.navigate({
-            name: 'Home',
-            params: {value:finalText}
-        })
         const requestOptions = {
             method:'post',
             headers: {
                
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                user_answer : inputText,
-                selected_option : selectedAns
-            })
+            body: JSON.stringify(answer)
         };
 
         fetch(dataUrl + 'storedata', requestOptions)
             .then(response => response.json())
-            .then(data => console.log(data));
-        
-          
-                fetch(dataUrl)
-                .then(res=>res.json())
-                .then((data)=> {
-              
-                SetFinalText(data[data.length -1].user_answer)
-                })
-               
-             
-        
+                .then(data =>  {
+
+                    if (data.insertId) {
+                        answer['time'] = new date();
+                        allAnswer.push(answer);
+                        navigation.navigate({
+                            name: 'Home'
+                        })
+                    }
+                }
+            );       
         
     }
 
