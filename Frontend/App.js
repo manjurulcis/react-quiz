@@ -49,7 +49,7 @@ const QuizApp = ({ route, navigation}) => {
         
         <FlatList
         data={!route.params?.allAnswers ? allAnswers : route.params?.allAnswers}
-        style={{width:'100%',paddingLeft:'5%',marginTop:'5%'}}
+        style={{width:'95%',paddingLeft:'1%',marginTop:'5%'}}
         renderItem={({item})=>(
           <View style={{padding:'10px', borderWidth: '1px', borderColor:'#ccc', marginBottom:'5px'}}>
             <Text style={{ fontSize: '30px'}}>
