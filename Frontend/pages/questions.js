@@ -18,7 +18,7 @@ const Questions = ({ route, navigation}) => {
 
     let answer = {};
 
-    const dataUrl = 'http://localhost:3000/';
+    const dataUrl = 'http://localhost:8000/';
     const [inputText, SetinputText] = useState(null);
     const [selectedAns, SetSelectedAns] = useState(null);
     
@@ -26,7 +26,7 @@ const Questions = ({ route, navigation}) => {
     const pushData = () =>{
         answer.user_answer = inputText
         answer.selected_option = selectedAns
-        answer.time = moment().format("YYYY.MM.DD HH:mm:ss");
+        answer.time = moment().format("YYYY.MM.DD HH:mm:ss").toString();
 
         const requestOptions = {
             method:'post',
@@ -41,11 +41,13 @@ const Questions = ({ route, navigation}) => {
             .then(response => response.json())
                 .then(data =>  {
                     if (data.insertId) {       
-                        route.params.allAnswers.push(answer)             
+                        // route.params.allAnswers.push(answer)    
+                        // [answer].concat(route.params.allAnswers)   
+                        console.log([answer].concat(route.params.allAnswers))      
                         navigation.navigate({
                             name: 'Home',
-                            params: { allAnswers: route.params.allAnswers},
-                            merge: true
+                            params: { allAnswers: [answer].concat(route.params.allAnswers)}
+                           
                         })
                     }
                 }

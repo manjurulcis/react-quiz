@@ -9,9 +9,9 @@ app.use(express.urlencoded());
 app.use(express.json());
 
 const connection = mysql.createConnection({  
-    host: "127.0.0.1",  
-    user: "quiz",  
-    password: "quizpass" ,
+    host: "localhost",  
+    user: "root",  
+    password: "" ,
     database: 'quizdb' 
     }); 
 
@@ -29,7 +29,7 @@ app.use(function(req, res, next) {
   });
 
 app.get('/', function (req, res) {
-    connection.query('select user_answer, selected_option, time from answers', function (err, result) {  
+    connection.query('select user_answer, selected_option, time from answers ORDER BY time desc', function (err, result) {  
         if (err) throw err;  
         console.log("Table selected");  
         //var string=JSON.stringify(result);
@@ -51,7 +51,7 @@ app.get('/', function (req, res) {
    
  })
  
- var server = app.listen(3000, function () {
+ var server = app.listen(8000, function () {
     var host = server.address().address
     var port = server.address().port
     
