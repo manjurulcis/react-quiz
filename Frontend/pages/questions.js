@@ -21,7 +21,8 @@ const Questions = ({ route, navigation}) => {
     const dataUrl = 'http://localhost:3000/';
     const [inputText, SetinputText] = useState(null);
     const [selectedAns, SetSelectedAns] = useState(null);
-
+    
+    console.log('data from route', route.params?.allAnswers)
     const pushData = () =>{
         answer.user_answer = inputText
         answer.selected_option = selectedAns
@@ -39,9 +40,12 @@ const Questions = ({ route, navigation}) => {
         fetch(dataUrl + 'storedata', requestOptions)
             .then(response => response.json())
                 .then(data =>  {
-                    if (data.insertId) {                    
+                    if (data.insertId) {       
+                        route.params.allAnswers.push(answer)             
                         navigation.navigate({
-                            name: 'Home'
+                            name: 'Home',
+                            params: { allAnswers: route.params.allAnswers},
+                            merge: true
                         })
                     }
                 }
