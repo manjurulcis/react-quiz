@@ -4,9 +4,6 @@ import axios from 'axios';
 import RadioGroup,{Radio} from "react-native-radio-input";
 import moment from 'moment';
 
-
-
-
 const Questions = ({ route, navigation}) => {
     const allQuestions = [
         {
@@ -17,8 +14,6 @@ const Questions = ({ route, navigation}) => {
     ];
 
     let answer = {};
-
-    const dataUrl = 'http://localhost:8000/';
     const [inputText, SetinputText] = useState(null);
     const [selectedAns, SetSelectedAns] = useState(null);
     
@@ -37,7 +32,7 @@ const Questions = ({ route, navigation}) => {
             body: JSON.stringify(answer)
         };
 
-        fetch(dataUrl + 'storedata', requestOptions)
+        fetch(process.env.API_URL + '/storedata', requestOptions)
             .then(response => response.json())
                 .then(data =>  {
                     if (data.insertId) {       

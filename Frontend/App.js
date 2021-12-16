@@ -9,15 +9,13 @@ import Questions from './pages/questions';
 import moment from 'moment';
 
 const title='Start';
-const baseURL = "http://localhost:8000/";
-
-
+console.log(API_URL, process.env.API_URL)
 const QuizApp = ({ route, navigation}) => {
   let [allAnswers, setAllAnswers] = useState([])
   useEffect(() => {
     if (route.params?.allAnswers) setAllAnswers(route.params?.allAnswers)
     else {
-      axios.get(baseURL)
+      axios.get(process.env.API_URL)
       .then((res)=> {
         setAllAnswers(res.data);
         console.log(allAnswers);
@@ -52,7 +50,7 @@ const QuizApp = ({ route, navigation}) => {
         </View>
         <FlatList
           data={!route.params?.allAnswers ? allAnswers : route.params?.allAnswers}
-          style={{width:'92%',paddingLeft:'1%',marginTop:'5%'}}
+          style={{width:'92%',paddingLeft:'1%', marginTop:'.2rem'}}
           renderItem={({item})=>(
             <View style={styles.dataGridRow}>
               <Text style={styles.dataGridCol1}>
@@ -126,15 +124,19 @@ const styles = StyleSheet.create({
   },
   dataGridCol1: {
     display: 'inline-block',
-    width: '40%',
-    fontSize: '.8rem',
-    color:'#222'
+    width: '36%',
+    fontSize: '1rem',
+    color:'#222',
+    borderBottomColor: '#ccc',
+    borderBottomWidth: '1'
   },
   dataGridCol2: {
     display: 'inline-block',
-    width: '30%',
-    fontSize: '.8rem',
+    width: '32%',
+    fontSize: '1rem',
     color:'#222',
+    borderBottomColor: '#ccc',
+    borderBottomWidth: '1'
   },
   datatableHeaderGridCol1: {
     display: 'inline-block',
@@ -142,17 +144,22 @@ const styles = StyleSheet.create({
     fontSize:'1rem',
     fontWeight:'700',
     color:'white',
-    height:'35',
+    height:'25',
     textAlign: 'left',
     paddingLeft: '1rem',
+    borderBottomColor: '#ccc',
+    borderBottomWidth: '1'
   },
   datatableHeaderGridCol2: {
     display: 'inline-block',
-    width: '30%',fontSize:'1rem',
+    width: '30%',
+    fontSize:'1rem',
     fontWeight:'700',
     color:'white',
-    height:'35',
-    textAlign: 'left'
+    height:'25',
+    textAlign: 'left',
+    borderBottomColor: '#ccc',
+    borderBottomWidth: '1'
   },
   answerLabel: {
     marginTop: '.7rem',
