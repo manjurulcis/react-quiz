@@ -34,39 +34,40 @@ const QuizApp = ({ route, navigation}) => {
       <SafeAreaView style={styles.container}> 
          
             
-          <Text style={styles.textColor}>Welcome to the Quiz</Text>
-          <Pressable style={styles.button} onPress={()=> navigation.navigate({name: 'Quiz', params: { allAnswers: allAnswers }})}>
-            <Text style={styles.text}>{title}</Text>
-          </Pressable>
-          {/* {!route.params?.allAnswers ? allAnswers.length : route.params?.allAnswers.length} */}
-       {/*    <DataTable
-          data={!route.params?.allAnswers ? allAnswers : route.params?.allAnswers} // list of objects
-          colNames={['user_answer', 'selected_option', 'time']} //List of Strings
-          colSettings={[{ name: 'user_answer', type: COL_TYPES.STRING }, { name: 'selected_option', type: COL_TYPES.STRING }, {name: 'time', type: COL_TYPES.DATETIME}]}
-          noOfPages={10} //number
-          /> */}
-        
-        
+        <Text style={styles.textColor}>Welcome to the Quiz</Text>
+        <Pressable style={styles.button} onPress={()=> navigation.navigate({name: 'Quiz', params: { allAnswers: allAnswers }})}>
+          <Text style={styles.text}>{title}</Text>
+        </Pressable>
+        <Text style={styles.answerLabel}>All Entries ( Total {!route.params?.allAnswers ? allAnswers.length : route.params?.allAnswers.length} )</Text>
+        <View style={styles.dataGridRow}>
+            <Text style={styles.datatableHeaderGridCol1}>
+              Text           
+            </Text>
+            <Text style={styles.datatableHeaderGridCol2}>
+              Option
+            </Text>
+            <Text style={styles.datatableHeaderGridCol2}>
+              Posted
+            </Text>
+        </View>
         <FlatList
-        data={!route.params?.allAnswers ? allAnswers : route.params?.allAnswers}
-        style={{width:'95%',paddingLeft:'1%',marginTop:'5%'}}
-        renderItem={({item})=>(
-          <View style={{padding:'10px', borderWidth: '1px', borderColor:'#ccc', marginBottom:'5px'}}>
-            <Text style={{ fontSize: '30px'}}>
-              Text: {item.user_answer}
-           
-            </Text>
-            <Text style={{ fontSize: '20px'}}>
-           Option: {item.selected_option}
-            </Text>
-            <Text style={{ fontSize: '20px'}}>
-            Time: {item.time.toString()}
-            </Text>
+          data={!route.params?.allAnswers ? allAnswers : route.params?.allAnswers}
+          style={{width:'92%',paddingLeft:'1%',marginTop:'5%'}}
+          renderItem={({item})=>(
+            <View style={styles.dataGridRow}>
+              <Text style={styles.dataGridCol1}>
+                {item.user_answer.length > 10 ? item.user_answer.substring(0,7) + '...' :item.user_answer.substring(0,10)}           
+              </Text>
+              <Text style={styles.dataGridCol2}>
+                {item.selected_option}
+              </Text>
+              <Text style={styles.dataGridCol2}>
+                {item.time.toString()}
+              </Text>
           </View>
           
           
         )}
-      
         />
      
        
@@ -113,6 +114,51 @@ const styles = StyleSheet.create({
     fontSize:'1.2rem',
     fontWeight:'700',
     color:'white'
+  },
+  dataGridRow:{
+    padding:'10px', 
+    borderWidth: '0', 
+    borderBottomWidth: '1',
+    borderBottomColor:'#ccc', 
+    marginBottom:'5px', 
+    display:'inline-block',
+    width: '100%'
+  },
+  dataGridCol1: {
+    display: 'inline-block',
+    width: '40%',
+    fontSize: '.8rem',
+    color:'#222'
+  },
+  dataGridCol2: {
+    display: 'inline-block',
+    width: '30%',
+    fontSize: '.8rem',
+    color:'#222',
+  },
+  datatableHeaderGridCol1: {
+    display: 'inline-block',
+    width: '40%',
+    fontSize:'1rem',
+    fontWeight:'700',
+    color:'white',
+    height:'35',
+    textAlign: 'left',
+    paddingLeft: '1rem',
+  },
+  datatableHeaderGridCol2: {
+    display: 'inline-block',
+    width: '30%',fontSize:'1rem',
+    fontWeight:'700',
+    color:'white',
+    height:'35',
+    textAlign: 'left'
+  },
+  answerLabel: {
+    marginTop: '.7rem',
+    marginBottom: '.6rem',
+    fontSize: '1.2rem',
+    color:'#FFDDEE'
   }
 });
 
