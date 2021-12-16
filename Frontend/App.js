@@ -3,86 +3,50 @@ import React, {useEffect, useState}from 'react';
 import { View ,SafeAreaView,FlatList, Image,Button,Alert , Pressable,Text,StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator} from '@react-navigation/native-stack';
-
-import Questions from './pages/questions';
-
+import DataTable, {COL_TYPES} from 'react-native-datatable-component';
 import axios from 'axios';
+import Questions from './pages/questions';
 
 
 const title='Start';
-
-
-
-const DATA = [
-  {
-    user_answer: "this is bot and this from bot",
-    selected_option: "First Item",
-    time: '12.10.2021'
-  },
-  {
-    user_answer: "this is another bot",
-    selected_option: "First Item",
-    time: '12.22.2021'
-  },
-  {
-    user_answer: "this is test",
-    selected_option: "First Item",
-    time: '8.10.2021'
-  },
-];
-
-// const [data,SetData] = useState([]);
-
-const baseURL = "http://localhost:8081/";
+const baseURL = "http://localhost:3000/";
+let showAllEntries = []
 
 const QuizApp = ({ route, navigation}) => {
-  let [homeData, SetHomeData] = useState([]);
-  useEffect(() => {
-    
-    axios.get(baseURL)
-    .then((res)=> {
-      SetHomeData((res.data))
-    })
-    .catch(function (error) {
-      // handle error
-      alert(error.message);
-    })
-
-   }, []);
- 
-
+  
   return (
     <SafeAreaView style={styles.container}> 
       <Text style={styles.textColor}>Welcome to the Quiz</Text>
       <Pressable style={styles.button} onPress={()=> navigation.navigate('Quiz')}>
         <Text style={styles.text}>{title}</Text>
-
       </Pressable>
-      
-      <View style={{ flexDirection:'row', justifyContent: 'center', marginTop: '25px' }}>
-      { console.log(homeData,DATA)}
-      <FlatList
-        data={homeData}
-        renderItem={({item})=>(
-          <Text style={{ fontSize: '20px'}}>Text: {item.user_answer} Option: {item.selected_option} Time: {item.time}</Text>
-          
-        )}
-      
+    
+      <DataTable
+      data={showAllEntries} // list of objects
+      colNames={['user_answer', 'selected_option', 'time']} //List of Strings
+      colSettings={[{ name: 'user_answer', type: COL_TYPES.STRING }, { name: 'selected_option', type: COL_TYPES.STRING }, {name: 'time', type: COL_TYPES.STRING}]}
+      noOfPages={10} //number
       />
-        
-        
-        
-
-
-        </View>
-     
-    </SafeAreaView>
+    
+  </SafeAreaView>
   );
 }
 
 const Stack = createNativeStackNavigator();
 
 function App() {
+
+  useEffect(() => {
+    axios.get(baseURL)
+    .then((res)=> {
+      showAllEntries = res.data;
+      console.log(showAllEntries);
+              
+    })
+    .catch(function (error) {
+      alert(error.message);
+    })
+  })
   return (
     <NavigationContainer>
       <Stack.Navigator>

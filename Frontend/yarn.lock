@@ -4812,6 +4812,13 @@ react-native-codegen@^0.0.6:
     jscodeshift "^0.11.0"
     nullthrows "^1.1.1"
 
+react-native-datatable-component@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-datatable-component/-/react-native-datatable-component-2.0.0.tgz#44ae3ae86415586b0f39ad453d66142c42fe03d9"
+  integrity sha512-tnSxBixyZBiPBd5PK5+wvQMeLItF17s9ZH8EAyXINGTWhrFa+wMtquadLFKaufhBU5EpGDGBm1G2fYvAHLw32g==
+  dependencies:
+    prop-types "^15.7.2"
+
 react-native-gesture-handler@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/react-native-gesture-handler/-/react-native-gesture-handler-2.1.0.tgz#be7a83a7bd340a2316551a4d30d7abf06b46c1da"

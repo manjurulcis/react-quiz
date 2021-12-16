@@ -6,8 +6,8 @@ import moment from 'moment';
 
 
 
-const Questions = ({ navigation}) => {
-    
+
+const Questions = ({ route, navigation}) => {
     const allQuestions = [
         {
             question: "What is part of a database that holds only one type of information?",
@@ -16,25 +16,16 @@ const Questions = ({ navigation}) => {
         }
     ];
 
-    const allAnswer =[];
     let answer = {};
 
-    const dataUrl = 'http://localhost:8081/';
+    const dataUrl = 'http://localhost:3000/';
     const [inputText, SetinputText] = useState(null);
     const [selectedAns, SetSelectedAns] = useState(null);
-    
-    
-    const [finalOption, SetFinalOption] = useState(null);
 
     const pushData = () =>{
-        // answer = {
-        //     user_answer : inputText,
-        //     selected_option : selectedAns
-        // }
-        // answer['user_answer'] = inputText
-        //  answer['selected_option'] = selectedAns
         answer.user_answer = inputText
         answer.selected_option = selectedAns
+        answer.time = moment().format("YYYY.MM.DD HH:mm:ss");
 
         const requestOptions = {
             method:'post',
@@ -48,12 +39,7 @@ const Questions = ({ navigation}) => {
         fetch(dataUrl + 'storedata', requestOptions)
             .then(response => response.json())
                 .then(data =>  {
-
-                    if (data.insertId) {
-                        answer.time = new Date().toLocaleString();
-                        allAnswer.push(answer);
-                        console.log(new Date().toLocaleString())
-                     
+                    if (data.insertId) {                    
                         navigation.navigate({
                             name: 'Home'
                         })
