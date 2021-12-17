@@ -6,10 +6,8 @@ import { createNativeStackNavigator} from '@react-navigation/native-stack';
 import DataTable, {COL_TYPES} from 'react-native-datatable-component';
 import axios from 'axios';
 import Questions from './pages/questions';
-import moment from 'moment';
 
 const title='Start';
-console.log(API_URL, process.env.API_URL)
 const QuizApp = ({ route, navigation}) => {
   let [allAnswers, setAllAnswers] = useState([])
   useEffect(() => {
@@ -26,7 +24,6 @@ const QuizApp = ({ route, navigation}) => {
       })
     }
    }, [route.params?.allAnswers]);
-   console.log('data from main', route.params?.allAnswers)
   return (
    
       <SafeAreaView style={styles.container}> 
