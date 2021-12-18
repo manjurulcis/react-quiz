@@ -3,10 +3,10 @@ A react native quiz app
 
 # App Architecture
 - Frontend (contains react Native App code)
-- Backend (contains nodejd code)
+- Backend (contains nodejs code)
 
 # How to run
-In the Frontend folder react antive app contaone. First we have to navigate to Frontend folder and run the below commands
+In the Frontend folder react native app contaone. First we have to navigate to Frontend folder and run the below commands
 - `cd Frontend && yarn install` or `cd Frontend && npm install`
 - `npm start`
 
