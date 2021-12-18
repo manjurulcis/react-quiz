@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View ,SafeAreaView, Image,Button,Alert , TouchableOpacity,Pressable,Modal,Text,StyleSheet, TextInput } from 'react-native';
 import axios from 'axios';
-import RadioGroup,{Radio} from "react-native-radio-input";
+import RadioGroup,{Radio} from "react-native-radio-input/Components/main";
 import moment from 'moment';
 
 const Questions = ({ route, navigation}) => {
