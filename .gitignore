@@ -108,3 +108,5 @@ dist
 
 
 .expo
+frontend/.expo
+frontend/.expo-shared
