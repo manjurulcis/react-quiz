@@ -16,7 +16,7 @@ const connection = mysql.createConnection({
     }); 
 
     connection.connect(function(err) {  
-        if (err) throw err;  
+        //if (err) throw err;  
 console.log("Connected!");  
 
          
@@ -51,7 +51,7 @@ app.get('/', function (req, res) {
    
  })
  
- var server = app.listen(8000, function () {
+ var server = app.listen(3001, function () {
     var host = server.address().address
     var port = server.address().port
     
