@@ -33,8 +33,8 @@ services:
     stdin_open: true
     environment:
       - CHOKIDAR_USEPOLLING=true
-      - REACT_NATIVE_PACKAGER_HOSTNAME=127.0.0.1
-      - EXPO_DEVTOOLS_LISTEN_ADDRESS=127.0.0.1
+      - REACT_NATIVE_PACKAGER_HOSTNAME=192.168.1.116
+      - EXPO_DEVTOOLS_LISTEN_ADDRESS=0.0.0.0
     build:
       dockerfile: Dockerfile
       context: ./frontend
@@ -45,7 +45,6 @@ services:
       - 19000:19000
       - 19001:19001
       - 19002:19002
-      - 19006:19006
     networks:
       - public      
 
@@ -60,9 +59,8 @@ services:
       MYSQL_USER: quiz
       MYSQL_PASSWORD: quiz
     ports:
-      - "3306:3306"
+      - "33060:3306"
     volumes:
-      - ~/.quizapp/data/mysql:/var/lib/mysql 
       - ./mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
       - "./setup.sql:/docker-entrypoint-initdb.d/setup.sql"
     networks:
