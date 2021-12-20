@@ -9,24 +9,22 @@ app.use(express.urlencoded());
 app.use(express.json());
 
 const connection = mysql.createConnection({  
-    host: "127.0.0.1",  
+    host: "db",  
     user: "quiz",  
-    password: "quizpass" ,
-    database: 'quizdb' 
+    password: "quiz" ,
+    database: 'quizdb'
     }); 
 
-    connection.connect(function(err) {  
-        //if (err) throw err;  
-console.log("Connected!");  
-
-         
+connection.connect(function(err) {  
+        if (err) throw err;  
+        console.log("Connected!");         
 });  
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "http://localhost:19006");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
-  });
+});
 
 app.get('/', function (req, res) {
     connection.query('select user_answer, selected_option, time from answers ORDER BY time desc', function (err, result) {  
@@ -38,7 +36,7 @@ app.get('/', function (req, res) {
     
  })
 
- app.post('/storedata', function (req, res) {
+app.post('/storedata', function (req, res) {
     var user_ans = req.body.user_answer;
     var option =  req.body.selected_option;
     var time =  req.body.time;
