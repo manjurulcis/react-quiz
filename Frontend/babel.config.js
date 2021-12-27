@@ -1,6 +1,7 @@
 module.exports = function(api) {
   api.cache(false);
   return {
+    
     presets: ['babel-preset-expo', '@babel/preset-env', '@babel/preset-react'],
     plugins: [
       ["module:react-native-dotenv", {
@@ -16,7 +17,6 @@ module.exports = function(api) {
         "verbose": false
       }],
       ["@babel/plugin-proposal-private-property-in-object", { "loose": true }]
-    ]
-    
+    ]    
   };
 };

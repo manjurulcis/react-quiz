@@ -9,9 +9,9 @@ app.use(express.urlencoded());
 app.use(express.json());
 
 const connection = mysql.createConnection({  
-    host: "127.0.0.1",  
-    user: "quiz",  
-    password: "quizpass" ,
+    host: "localhost",  
+    user: "root",  
+    password: "" ,
     database: 'quizdb' 
     }); 
 
