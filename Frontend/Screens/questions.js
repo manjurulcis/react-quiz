@@ -12,29 +12,23 @@ import {
   StyleSheet,
   TextInput,
 } from "react-native";
-import axios from "axios";
-import RadioGroup, { Radio } from "react-native-radio-input/Components/main";
 
 import moment from "moment";
-
 import Options from "../components/Options";
-
-import { allQuestions } from "../data/QuizData";
 
 // recoil states
 import {useRecoilValue,useSetRecoilState} from "recoil";
 
 import { inputTextState, selectedOptionState } from "../recoil/atoms/questionAtoms";
-
-import { getAllAnswer} from "../recoil/selectors/homeSelectors";
 import { allAnswersState } from "../recoil/atoms/quizAtoms";
+
 const Questions = ({ route, navigation }) => {
   //imported from atoms states
   const selectedAns= useRecoilValue(selectedOptionState);
   const inputText = useRecoilValue(inputTextState);
+
   const answer = {};
  
-  // let allAnswers = useRecoilValue(getAllAnswer);
   const setAllAnswers = useSetRecoilState(allAnswersState);
 
   const pushData = () => {
@@ -63,22 +57,7 @@ const Questions = ({ route, navigation }) => {
           params: { answer: answer },
         });
       }
-    });
-
-    /* pushAnswer(process.env.API_URL + "/storedata").then(
-      (data) => {
-        if (data.insertId) {
-          navigation.navigate({
-            name: "Home",
-            params: {
-              allAnswers: [setAnswerObject].concat(route.params.allAnswers),
-            },
-          });
-        }
-      }
-    ); */
-
-   
+    });  
   };
   
   return (

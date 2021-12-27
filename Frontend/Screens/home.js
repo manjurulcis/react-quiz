@@ -13,30 +13,24 @@ import {
 } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import { useRecoilState, useRecoilValue,useSetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { getAllAnswer } from "../recoil/selectors/homeSelectors";
-import { allAnswersState } from "../recoil/atoms/quizAtoms";
 
 const QuizApp = ({ route, navigation }) => {
+
   // Button title
   const title = "Start";
   // Fetching data and showing to Home
-//  let setAllAnswers = useSetRecoilState(allAnswersState);
- 
- let oldAllAnswers= useRecoilValue(getAllAnswer);
+  let oldAllAnswers = useRecoilValue(getAllAnswer);
 
   const [allAnswers, setAllAnswers] = useState(oldAllAnswers);
   console.log(allAnswers);
- useEffect(() => {
-   console.log(route.params?.answer)
-    if (route.params?.answer)  
-    setAllAnswers([route.params?.answer, ...allAnswers])
-  // setAllAnswers( )
- /* 
-  allAnswers[0]= [route.params?.answer].concat(allAnswers) */
-  console.log("Inside Useffect", allAnswers)
-
- }, [route]);
+  useEffect(() => {
+    console.log(route.params?.answer);
+    if (route.params?.answer)
+      setAllAnswers([route.params?.answer, ...allAnswers]);
+    console.log("Inside Useffect", allAnswers);
+  }, [route]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -53,16 +47,13 @@ const QuizApp = ({ route, navigation }) => {
         <Text style={styles.text}>{title}</Text>
       </Pressable>
       <Text style={styles.answerLabel}>
-        All Entries ( Total{" "}
-        {allAnswers.length}{" "}
-        )
+        All Entries ( Total {allAnswers.length} )
       </Text>
       <View style={styles.dataGridRow}>
         <Text style={styles.datatableHeaderGridCol1}>Text</Text>
         <Text style={styles.datatableHeaderGridCol2}>Option</Text>
         <Text style={styles.datatableHeaderGridCol2}>Posted</Text>
       </View>
-      {/* <React.Suspense fallback="Loading weather..."> */}
       <FlatList
         data={allAnswers}
         style={{ width: "92%", paddingLeft: "1%", marginTop: ".2rem" }}
@@ -78,7 +69,6 @@ const QuizApp = ({ route, navigation }) => {
           </View>
         )}
       />
-      {/* </React.Suspense> */}
     </SafeAreaView>
   );
 };

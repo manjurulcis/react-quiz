@@ -10,12 +10,5 @@ export const getAllAnswer = selector({
     } catch (error) {
       console.log(error);
     }
-
-    /* const setInputText = get(inputTextState);
-          const setSelectedOption = get(selectedOptionState);
-    
-          const userAnswer = get(answerObjectState).user_answer;
-          const selectedOption = get(answerObjectState).selected_option;
-          const time = get(answerObjectState).time; */
   },
 });
