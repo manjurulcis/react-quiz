@@ -48,7 +48,7 @@ const Questions = ({ route, navigation }) => {
         <TouchableOpacity style={QuizStyle.nextBtnDiv}>
           <Text
             onPress={() => {
-              if (selectedAnswer && inputText) {
+              if (selectedAnswer || inputText) {
                 const userResponseData = {
                   selected_option: selectedAnswer,
                   user_answer: inputText,
