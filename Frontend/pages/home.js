@@ -8,7 +8,7 @@ import axios from 'axios';
 
 
 const QuizApp = ({ route, navigation}) => {
-    const title='Start';
+  const title='Start';
   let [allAnswers, setAllAnswers] = useState([])
   useEffect(() => {
     if (route.params?.allAnswers) setAllAnswers(route.params?.allAnswers)
