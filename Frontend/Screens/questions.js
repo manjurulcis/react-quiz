@@ -54,6 +54,7 @@ const Questions = ({ route, navigation }) => {
                   user_answer: inputText,
                   time: moment().format("YYYY.MM.DD HH:mm:ss").toString()
                 }
+                console.log(userResponseData);
                 const saved = saveAnswer(userResponseData);
                 saved.then((data) => {
                   console.log(data);
@@ -65,7 +66,7 @@ const Questions = ({ route, navigation }) => {
                   setSelectedAnswer(null);
                   setInputText("");
                 })
-                console.log(saved);
+                
               
               }
             }}

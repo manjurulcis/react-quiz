@@ -1,5 +1,3 @@
-import { selector } from "recoil";
-import axios from "axios";
 export const saveAnswer = async (answer) => {
     try {
         const requestOptions = {
@@ -9,8 +7,9 @@ export const saveAnswer = async (answer) => {
             },
             body: JSON.stringify(answer),
         };  
-        const res = await axios(process.env.API_URL+ "/storedata", requestOptions);
-        return res.data;
+        const res = fetch(process.env.API_URL + '/storedata', requestOptions)
+        .then((response) => response.json())
+        return res;
     } catch (error) {
        console.log(error);
     }
