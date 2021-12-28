@@ -13,23 +13,21 @@ import {
 } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useRecoilState } from "recoil";
 import { getAllAnswer } from "../recoil/selectors/homeSelectors";
+import { allAnswersState } from "../recoil/atoms/homeAtoms"
 
 const QuizApp = ({ route, navigation }) => {
 
   // Button title
   const title = "Start";
-  // Fetching data and showing to Home
-  let oldAllAnswers = useRecoilValue(getAllAnswer);
-
-  const [allAnswers, setAllAnswers] = useState(oldAllAnswers);
-  console.log(allAnswers);
+  const foundAnswers = useRecoilValue(getAllAnswer);
+  const [allAnswers, setAllAnswers] = useRecoilState(allAnswersState);
   useEffect(() => {
-    console.log(route.params?.answer);
     if (route.params?.answer)
-      setAllAnswers([route.params?.answer, ...allAnswers]);
-    console.log("Inside Useffect", allAnswers);
+      setAllAnswers([route.params.answer, ...foundAnswers]);
+    else 
+      setAllAnswers(foundAnswers);
   }, [route]);
 
   return (

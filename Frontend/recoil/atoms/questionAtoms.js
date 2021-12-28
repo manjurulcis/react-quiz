@@ -11,3 +11,13 @@ export const selectedOptionState = atom({
     key: "selectedOption",
     default: null,
   });
+
+
+  export const answerObjectState = atom({
+    key: 'answer',
+    default: {
+        user_answer: '',
+        selected_option: '',
+        time: ''
+    }
+})

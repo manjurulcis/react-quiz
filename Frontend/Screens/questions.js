@@ -12,57 +12,70 @@ import {
   StyleSheet,
   TextInput,
 } from "react-native";
-
+import { inputTextState,selectedOptionState, answerObjectState } from "../recoil/atoms/questionAtoms";
+import { useRecoilState } from "recoil";
+import RadioGroup, { Radio } from "react-native-radio-input/Components/main";
+import { allQuestions } from "../data/QuizData";
+import { saveAnswer } from '../shared/app.service';
 import moment from "moment";
-import Options from "../components/Options";
-
-// recoil states
-import {useRecoilValue,useSetRecoilState} from "recoil";
-
-import { inputTextState, selectedOptionState } from "../recoil/atoms/questionAtoms";
-import { allAnswersState } from "../recoil/atoms/quizAtoms";
 
 const Questions = ({ route, navigation }) => {
-  //imported from atoms states
-  const selectedAns= useRecoilValue(selectedOptionState);
-  const inputText = useRecoilValue(inputTextState);
+  const [selectedAnswer, setSelectedAnswer] = useRecoilState(selectedOptionState);
+  const [inputText, setInputText] = useRecoilState(inputTextState);
 
-  const answer = {};
- 
-  const setAllAnswers = useSetRecoilState(allAnswersState);
-
-  const pushData = () => {
-   
-    answer.user_answer = inputText;
-    answer.selected_option = selectedAns;
-    answer.time = moment().format("YYYY.MM.DD HH:mm:ss").toString();
-    console.log(answer);
-
-    const requestOptions = {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(answer),
-    };
-
-    fetch(process.env.API_URL + "/storedata", requestOptions)
-    .then((response) => response.json())
-    .then((data) => {
-      if (data.insertId) {
-        setAllAnswers((oldAllAnswers) => {[answer, ...oldAllAnswers]; console.log("From oldallansewer",oldAllAnswers)})
-
-        navigation.navigate({
-          name: "Home",
-          params: { answer: answer },
-        });
-      }
-    });  
-  };
-  
   return (
     <SafeAreaView style={QuizStyle.container}>
-      <Options push={pushData} />
+      <View style={QuizStyle.quizView}>
+        <TextInput
+          style={QuizStyle.inputField}
+          onChangeText={setInputText}
+          setEditable={true}
+          placeholder="Type here...."
+        />
+
+        <Text style={QuizStyle.quizTitle}>{allQuestions[0].question}</Text>
+
+        <RadioGroup
+          getChecked={(value) => {
+            setSelectedAnswer(value);
+          }}
+        >
+          <Radio iconName={"lens"} label={"Report"} value={"Report"} />
+          <Radio iconName={"lens"} label={"Field"} value={"Field"} />
+          <Radio iconName={"lens"} label={"Record"} value={"Record"} />
+        </RadioGroup>
+
+        <TouchableOpacity style={QuizStyle.nextBtnDiv}>
+          <Text
+            onPress={() => {
+              if (selectedAnswer && inputText) {
+                const userResponseData = {
+                  selected_option: selectedAnswer,
+                  user_answer: inputText,
+                  time: moment().format("YYYY.MM.DD HH:mm:ss").toString()
+                }
+                const saved = saveAnswer(userResponseData);
+                saved.then((data) => {
+                  console.log(data);
+                  if (data.insertId)
+                  navigation.navigate({
+                    name: "Home",
+                    params: { answer: userResponseData },
+                  });
+                  setSelectedAnswer(null);
+                  setInputText("");
+                })
+                console.log(saved);
+              
+              }
+            }}
+            disabled={!selectedAnswer && !inputText}
+            style={QuizStyle.nextBtn}
+          >
+            Submit
+          </Text>
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 };
