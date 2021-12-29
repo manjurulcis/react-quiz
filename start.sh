@@ -1,2 +1,2 @@
 docker-compose up -d --build
-cd frontend && yarn install && npm start
+cd client && yarn install && npm start
