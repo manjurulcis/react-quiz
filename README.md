@@ -13,11 +13,11 @@ Navigate to the root folder and run the `sh start.sh` in your terminal. It will 
 
 # How to run manually
 To run the services manually and seprately you need to run your own mysql server and change db credentials in the `server/request.js` file. We will move this to .env later
-In the client folder react native app contaone. First we have to navigate to Frontend folder and run the below commands
+In the client folder react native app contains. First we have to navigate to client folder. In the root folder of the repo you can run the below commands to run the app.
 - `cd client && yarn install` or `cd client && npm install`
 - `npm start`
 
-To Run backend nodejs app navigate to backend folder
+To Run backend nodejs app navigate to backend folder. In the root folder you can the below command.
 - `cd server && npm install` 
 - `node request.js`
 
@@ -26,5 +26,5 @@ To Run backend nodejs app navigate to backend folder
 - `cd client && npm test`
 
 # Limitations and Future Improvements
-- A react state manamgement library could have been used 
-- Backend app could have been configured for staging and production
+- Using the state management library in more structured way for more features
+- Backend app could have been configured for using .env so staging, production and development environment setup gets easy
