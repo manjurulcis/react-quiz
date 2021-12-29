@@ -9,10 +9,17 @@ app.use(express.urlencoded());
 app.use(express.json());
 
 const connection = mysql.createConnection({  
+<<<<<<< HEAD:Backend/request.js
     host: "db",  
     user: "quiz",  
     password: "quiz" ,
     database: 'quizdb'
+=======
+    host: "localhost",  
+    user: "root",  
+    password: "" ,
+    database: 'quizdb' 
+>>>>>>> refactor:server/request.js
     }); 
 
 connection.connect(function(err) {  
@@ -36,7 +43,15 @@ app.get('/', function (req, res) {
     
  })
 
+<<<<<<< HEAD:Backend/request.js
 app.post('/storedata', function (req, res) {
+=======
+ app.post('/storedata', function (req, res) {
+    if(!req.body.user_answer || !req.body.selected_option){
+        console.log('No data found');
+    }  
+    
+>>>>>>> refactor:server/request.js
     var user_ans = req.body.user_answer;
     var option =  req.body.selected_option;
     var time =  req.body.time;
