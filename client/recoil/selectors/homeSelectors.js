@@ -2,7 +2,7 @@ import { selector } from "recoil";
 import axios from "axios";
 
 export const getAllAnswer = selector({
-  key: "pushData",
+  key: "getAllAnswer",
   get: async ({get}) => {
     try {
       const res = await axios(process.env.API_URL);

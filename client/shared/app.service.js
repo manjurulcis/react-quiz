@@ -7,9 +7,7 @@ export const saveAnswer = async (answer) => {
             },
             body: JSON.stringify(answer),
         };  
-        const res = fetch(process.env.API_URL + '/storedata', requestOptions)
-        .then((response) => response.json())
-        return res;
+        return fetch(process.env.API_URL + '/storedata', requestOptions);
     } catch (error) {
        console.log(error);
     }
