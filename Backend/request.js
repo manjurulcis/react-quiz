@@ -39,19 +39,19 @@ app.get('/', function (req, res) {
  })
 
  app.post('/storedata', function (req, res) {
-    if(req.body.user_answer && req.body.selected_option != null){
-        var user_ans = req.body.user_answer;
-        var option =  req.body.selected_option;
-        var time =  req.body.time;
-        connection.query('INSERT INTO `answers` (`user_answer`, `selected_option`, `time`) VALUES ("'+user_ans+'", "'+option+'", "'+time+'")',
-        function (err, result) {  
-                if (err) throw err;  
-                console.log("Data inserted");  
-                res.send(result);
-                });
+    if(!req.body.user_answer || !req.body.selected_option){
+        console.log('No data found');
     }  
-    console.log('No data found');
     
+    var user_ans = req.body.user_answer;
+    var option =  req.body.selected_option;
+    var time =  req.body.time;
+    connection.query('INSERT INTO `answers` (`user_answer`, `selected_option`, `time`) VALUES ("'+user_ans+'", "'+option+'", "'+time+'")',
+    function (err, result) {  
+            if (err) throw err;  
+            console.log("Data inserted");  
+            res.send(result);
+            });
    
  })
  
