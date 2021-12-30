@@ -8,7 +8,7 @@ export const saveAnswer = async (answer) => {
             body: JSON.stringify(answer),
         };  
         
-        const res = fetch('http://localhost:8000/storedata', requestOptions)
+        const res = fetch(process.env.API_URL + '/storedata', requestOptions)
         .then((response) => response.json())
         return res;
     } catch (error) {
