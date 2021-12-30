@@ -5,7 +5,7 @@ export const getAllAnswer = selector({
   key: "getAllAnswer",
   get: async ({get}) => {
     try {
-      const res = await axios(process.env.API_URL);
+      const res = await axios('http://localhost:8000');
       return res.data;
     } catch (error) {
       console.log(error);
