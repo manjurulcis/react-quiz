@@ -1,5 +1,5 @@
 # react-quiz
-A react native quiz app
+A react native quiz app with node express server backend and mysql database.
 
 # App Architecture
 - client (contains react Native App code)
