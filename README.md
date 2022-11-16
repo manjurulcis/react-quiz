@@ -21,7 +21,7 @@ To Run backend nodejs app navigate to backend folder. In the root folder you can
 - `cd server && npm install` 
 - `node request.js`
 
-
+Browse http://localhost:19006
 # How to run tests
 - `cd client && npm test`
 
